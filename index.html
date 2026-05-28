@@ -3,356 +3,421 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarieven / Tarifs 2021 — Calculator</title>
+  <title>Number One — Calculateur Tarifs 2021</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <header class="app-header">
-    <div class="header-inner">
-      <div class="header-logo">
-        <span class="logo-mark">▣</span>
-        <div>
-          <span class="logo-title">TARIEVEN / TARIFS</span>
-          <span class="logo-year">2021</span>
-        </div>
-      </div>
-      <div class="header-right">
-        <span class="disclaimer-badge">⚠ Tous les prix sont hors TVA (21%)</span>
+    <span class="flag">🇫🇷</span>
+    <div class="logo">
+      <div class="logo-circle">1</div>
+      <div>
+        <span class="logo-name">NUMBER ONE</span>
+        <span class="logo-tagline">DELIVERY</span>
       </div>
     </div>
+    <button class="menu-btn">☰</button>
   </header>
 
-  <div class="app-layout">
-    <!-- LEFT: INPUTS -->
-    <main class="form-panel">
+  <div class="app">
 
-      <!-- SECTION 1: PRICING MODE -->
-      <section class="card" id="section-mode">
-        <div class="card-header">
-          <span class="card-number">01</span>
-          <h2>Mode de tarification</h2>
+    <!-- HERO (updated by JS per step) -->
+    <div class="hero" id="hero">
+      <div class="step-progress" id="step-progress"></div>
+      <div class="hero-body">
+        <div class="hero-text">
+          <h1 class="hero-title" id="hero-title"></h1>
+          <p class="hero-subtitle" id="hero-subtitle"></p>
         </div>
-        <div class="card-body">
-          <div class="mode-grid">
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="bxl" checked />
-              <span class="mode-label">
-                <strong>Bruxelles / Brussel</strong>
-                <small>Prix fixe ville</small>
-              </span>
-            </label>
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="rand" />
-              <span class="mode-label">
-                <strong>Rand / Banlieue</strong>
-                <small>Prix périphérie</small>
-              </span>
-            </label>
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="prov_min" />
-              <span class="mode-label">
-                <strong>Province min.</strong>
-                <small>Tarif provincial fixe</small>
-              </span>
-            </label>
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="prov_km" />
-              <span class="mode-label">
-                <strong>Province / km</strong>
-                <small>Tarif par kilomètre</small>
-              </span>
-            </label>
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="navette" />
-              <span class="mode-label">
-                <strong>Navette</strong>
-                <small>Prix fixe navette</small>
-              </span>
-            </label>
-            <label class="mode-option">
-              <input type="radio" name="pricingMode" value="dispo" />
-              <span class="mode-label">
-                <strong>Tournée / Dispo</strong>
-                <small>Prix horaire</small>
-              </span>
-            </label>
-          </div>
-
-          <!-- Province KM input -->
-          <div class="conditional-block" id="block-prov-km">
-            <label class="form-label">Distance (km)
-              <input type="number" id="provKmDistance" class="form-input" min="0" value="50" placeholder="km" />
-            </label>
-          </div>
-
-          <!-- Navette zone selector -->
-          <div class="conditional-block" id="block-navette">
-            <label class="form-label">Zone navette
-              <select id="navetteZone" class="form-select">
-                <option value="bxl">Bxl / Brussel — €6.65</option>
-                <option value="rand">Banl. / Rand — €7.76</option>
-                <option value="brabant">Brabant — €12.20</option>
-                <option value="prov">Prov. — €15.25</option>
-                <option value="prov_lux">Prov. Lux. — €24.40</option>
-                <option value="export">Export (sur demande / op aanvraag)</option>
-              </select>
-            </label>
-          </div>
-
-          <!-- Dispo options -->
-          <div class="conditional-block" id="block-dispo">
-            <div class="form-row">
-              <label class="form-label">Durée
-                <select id="dispoDuration" class="form-select">
-                  <option value="under6">Moins de 6h / Minder dan 6u</option>
-                  <option value="over6">6h ou plus / 6u of meer</option>
-                </select>
-              </label>
-              <label class="form-label">Nombre d'heures
-                <input type="number" id="dispoHours" class="form-input" min="0.5" step="0.5" value="4" />
-              </label>
-            </div>
-            <label class="form-label">Km supplémentaires (dispo)
-              <input type="number" id="dispoExtraKm" class="form-input" min="0" value="0" />
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 2: LOAD REQUIREMENTS -->
-      <section class="card" id="section-requirements">
-        <div class="card-header">
-          <span class="card-number">02</span>
-          <h2>Caractéristiques du chargement</h2>
-        </div>
-        <div class="card-body">
-          <div class="form-row">
-            <label class="form-label">Palettes (pal)
-              <input type="number" id="reqPallets" class="form-input" min="0" value="2" placeholder="0" />
-            </label>
-            <label class="form-label">Poids / Gewicht (kg)
-              <input type="number" id="reqWeight" class="form-input" min="0" value="300" placeholder="kg" />
-            </label>
-          </div>
-          <div class="form-row">
-            <label class="form-label">Hauteur / Hoogte
-              <div class="input-with-unit">
-                <input type="number" id="reqHeight" class="form-input" min="0" step="0.01" value="1.2" placeholder="0.00" />
-                <select id="reqHeightUnit" class="unit-select">
-                  <option value="m">m</option>
-                  <option value="cm">cm</option>
-                </select>
-              </div>
-            </label>
-            <label class="form-label">Longueur / Lengte
-              <div class="input-with-unit">
-                <input type="number" id="reqLength" class="form-input" min="0" step="0.01" value="2.0" placeholder="0.00" />
-                <select id="reqLengthUnit" class="unit-select">
-                  <option value="m">m</option>
-                  <option value="cm">cm</option>
-                </select>
-              </div>
-            </label>
-            <label class="form-label">Largeur / Breedte
-              <div class="input-with-unit">
-                <input type="number" id="reqWidth" class="form-input" min="0" step="0.01" value="1.1" placeholder="0.00" />
-                <select id="reqWidthUnit" class="unit-select">
-                  <option value="m">m</option>
-                  <option value="cm">cm</option>
-                </select>
-              </div>
-            </label>
-          </div>
-          <div class="form-row">
-            <label class="form-label">Volume (m³)
-              <input type="number" id="reqVolume" class="form-input" min="0" step="0.1" value="0" placeholder="0.0 (opt.)" />
-            </label>
-          </div>
-
-          <div class="form-row checkrow">
-            <label class="check-label">
-              <input type="checkbox" id="reqTailLift" />
-              <span>Hayon / Laadklep requis</span>
-            </label>
-            <label class="check-label">
-              <input type="checkbox" id="reqRefrigerated" />
-              <span>Transport frigorifique</span>
-            </label>
-          </div>
-
-          <div class="conditional-block" id="block-temp">
-            <label class="form-label">Plage de température
-              <select id="reqTempRange" class="form-select">
-                <option value="minus12_0">-12°C / 0°C</option>
-                <option value="0_minus20">0°C / -20°C</option>
-              </select>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 3: VEHICLE SELECTION -->
-      <section class="card" id="section-vehicle">
-        <div class="card-header">
-          <span class="card-number">03</span>
-          <h2>Sélection du véhicule</h2>
-        </div>
-        <div class="card-body">
-          <div id="vehicle-auto-result" class="vehicle-auto"></div>
-
-          <div class="override-row">
-            <label class="check-label">
-              <input type="checkbox" id="vehicleOverride" />
-              <span>Sélection manuelle (override)</span>
-            </label>
-          </div>
-          <div class="conditional-block" id="block-vehicle-override">
-            <label class="form-label">Choisir un véhicule
-              <select id="vehicleSelect" class="form-select">
-                <!-- Populated by JS -->
-              </select>
-            </label>
-          </div>
-
-          <div id="vehicle-debug" class="debug-panel">
-            <div class="debug-header" id="debug-toggle">
-              <span>▶ Détails de sélection (afficher/masquer)</span>
-            </div>
-            <div class="debug-body" id="debug-body" style="display:none;"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4: OPERATIONAL EXTRAS -->
-      <section class="card" id="section-extras">
-        <div class="card-header">
-          <span class="card-number">04</span>
-          <h2>Suppléments opérationnels</h2>
-        </div>
-        <div class="card-body">
-          <div class="form-row">
-            <label class="form-label">Temps d'attente total (min)
-              <input type="number" id="waitingMinutes" class="form-input" min="0" value="0" />
-              <small class="helper-text" id="waitingHelper">Temps inclus: — min</small>
-            </label>
-          </div>
-          <div class="form-row">
-            <label class="form-label">Extra arrêts Bruxelles
-              <input type="number" id="extraStopsBxl" class="form-input" min="0" value="0" />
-            </label>
-            <label class="form-label">Extra arrêts autres / anderen
-              <input type="number" id="extraStopsOther" class="form-input" min="0" value="0" />
-            </label>
-          </div>
-
-          <div class="form-row checkrow">
-            <label class="check-label">
-              <input type="checkbox" id="suppNight" />
-              <span>Supplément nuit (€67.22)</span>
-            </label>
-            <label class="check-label">
-              <input type="checkbox" id="suppNightFrigo12" />
-              <span>Nuit frigo -12/0°C (€79.44)</span>
-            </label>
-            <label class="check-label">
-              <input type="checkbox" id="suppNightFrigo20" />
-              <span>Nuit frigo 0/-20°C (€91.67)</span>
-            </label>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label">Convoyeur / Begeleider (heures)
-              <input type="number" id="convoyeurHours" class="form-input" min="0" step="0.5" value="0" />
-              <small class="helper-text">€31.27 / heure</small>
-            </label>
-            <label class="form-label">2° Chauffeur (heures)
-              <input type="number" id="chauffeurHours" class="form-input" min="0" step="0.5" value="0" />
-              <small class="helper-text">€36.66 / heure</small>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 5: FUEL & VAT -->
-      <section class="card" id="section-fiscal">
-        <div class="card-header">
-          <span class="card-number">05</span>
-          <h2>Carburant &amp; TVA</h2>
-        </div>
-        <div class="card-body">
-          <div class="form-row checkrow">
-            <label class="check-label">
-              <input type="checkbox" id="fuelEnabled" />
-              <span>Appliquer surcharge carburant</span>
-            </label>
-          </div>
-          <div class="conditional-block" id="block-fuel">
-            <label class="form-label">% Surcharge carburant
-              <input type="number" id="fuelPct" class="form-input" min="0" max="100" step="0.01" value="7.75" />
-              <small class="helper-text warning-text">⚠ Valeur variable — à vérifier mensuellement. Exemple nov. 2020: 7.75%</small>
-            </label>
-          </div>
-
-          <div class="form-row checkrow" style="margin-top:1rem;">
-            <label class="check-label">
-              <input type="checkbox" id="showVAT" />
-              <span>Afficher prix TTC (TVA 21%)</span>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <div class="form-actions">
-        <button class="btn btn-secondary" id="btnReset">↺ Réinitialiser</button>
-        <button class="btn btn-primary" id="btnCalculate">Calculer →</button>
+        <div class="hero-emoji" id="hero-emoji"></div>
       </div>
-    </main>
+    </div>
 
-    <!-- RIGHT: RESULTS -->
-    <aside class="results-panel" id="results-panel">
-      <div class="results-sticky">
-        <div id="result-placeholder" class="result-placeholder">
-          <div class="placeholder-icon">◎</div>
-          <p>Remplissez le formulaire et cliquez sur <strong>Calculer</strong></p>
-        </div>
-        <div id="result-content" style="display:none;">
+    <!-- CONTENT CARD -->
+    <div class="content-card">
 
-          <div id="result-warning-banner" class="warning-banner" style="display:none;"></div>
+      <!-- ======== STEP 1: Mode de tarification ======== -->
+      <div class="step-content" id="step-1">
+        <div class="mode-list">
 
-          <div class="result-vehicle-card" id="result-vehicle-card">
-            <div class="result-vehicle-icon">🚛</div>
-            <div>
-              <div class="result-vehicle-name" id="result-vehicle-name">—</div>
-              <div class="result-vehicle-reason" id="result-vehicle-reason">—</div>
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="bxl" checked />
+            <span class="mode-emoji">🏙️</span>
+            <div class="mode-info">
+              <strong>Bruxelles / Brussel</strong>
+              <small>Prix fixe ville</small>
             </div>
-          </div>
+            <span class="radio-circle"></span>
+          </label>
 
-          <div class="breakdown-table" id="breakdown-table">
-            <!-- rows injected by JS -->
-          </div>
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="prov_min" />
+            <span class="mode-emoji">🏘️</span>
+            <div class="mode-info">
+              <strong>Province min.</strong>
+              <small>Tarif provincial fixe</small>
+            </div>
+            <span class="radio-circle"></span>
+          </label>
 
-          <div class="totals-block" id="totals-block">
-            <!-- injected by JS -->
-          </div>
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="rand" />
+            <span class="mode-emoji">📍</span>
+            <div class="mode-info">
+              <strong>Rand / Banlieue</strong>
+              <small>Prix périphérie</small>
+            </div>
+            <span class="radio-circle"></span>
+          </label>
 
-          <div class="disclaimer-note">
-            Ce calculateur est basé sur le tarif 2021. Le prix final reste soumis à vérification commerciale.
-          </div>
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="prov_km" />
+            <span class="mode-emoji">🛣️</span>
+            <div class="mode-info">
+              <strong>Province / Km</strong>
+              <small>Tarif par kilomètre</small>
+            </div>
+            <span class="radio-circle"></span>
+          </label>
 
-          <div class="result-actions">
-            <button class="btn btn-sm btn-outline" id="btnPrint">🖨 Imprimer</button>
-            <button class="btn btn-sm btn-outline" id="btnCopy">📋 Copier</button>
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="navette" />
+            <span class="mode-emoji">🚐</span>
+            <div class="mode-info">
+              <strong>Navette</strong>
+              <small>Prix fixe Navette</small>
+            </div>
+            <span class="radio-circle"></span>
+          </label>
+
+          <label class="mode-card">
+            <input type="radio" name="pricingMode" value="dispo" />
+            <span class="mode-emoji">🕐</span>
+            <div class="mode-info">
+              <strong>Tournée / Dispo</strong>
+              <small>Prix Horaire</small>
+            </div>
+            <span class="radio-circle"></span>
+          </label>
+
+        </div>
+
+        <div class="cond-block" id="block-prov-km">
+          <label class="field-label">Distance (km)
+            <input type="number" id="provKmDistance" class="field-input" min="0" value="50" placeholder="km" />
+          </label>
+        </div>
+
+        <div class="cond-block" id="block-navette">
+          <label class="field-label">Zone navette
+            <select id="navetteZone" class="field-select">
+              <option value="bxl">Bxl / Brussel — €6.65</option>
+              <option value="rand">Banl. / Rand — €7.76</option>
+              <option value="brabant">Brabant — €12.20</option>
+              <option value="prov">Prov. — €15.25</option>
+              <option value="prov_lux">Prov. Lux. — €24.40</option>
+              <option value="export">Export (sur demande)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="cond-block" id="block-dispo">
+          <div class="two-col">
+            <label class="field-label">Durée
+              <select id="dispoDuration" class="field-select">
+                <option value="under6">Moins de 6h</option>
+                <option value="over6">6h ou plus</option>
+              </select>
+            </label>
+            <label class="field-label">Heures
+              <input type="number" id="dispoHours" class="field-input" min="0.5" step="0.5" value="4" />
+            </label>
           </div>
+          <label class="field-label" style="margin-top:10px;">Km supplémentaires
+            <input type="number" id="dispoExtraKm" class="field-input" min="0" value="0" />
+          </label>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="goToStep(2)">Suivant <span>→</span></button>
         </div>
       </div>
-    </aside>
-  </div>
 
-  <footer class="app-footer">
-    <span>Tarieven / Tarifs 2021 · Tous les prix sont hors TVA (21%) · <em>Al deze tarieven zijn exclusief BTW (21%)</em></span>
-  </footer>
+      <!-- ======== STEP 2: Caractéristiques du chargement ======== -->
+      <div class="step-content" id="step-2" style="display:none;">
+
+        <div class="field-card">
+          <span class="field-card-icon">🚛</span>
+          <label class="field-label">PALETTES (PAL)
+            <input type="number" id="reqPallets" class="field-input" min="0" value="2" />
+          </label>
+        </div>
+
+        <div class="field-card">
+          <span class="field-card-icon">⚖️</span>
+          <label class="field-label">POIDS / GEWICHT (Kg)
+            <input type="number" id="reqWeight" class="field-input" min="0" value="300" />
+          </label>
+        </div>
+
+        <div class="dims-card">
+          <div class="dims-grid">
+            <div class="dim-item">
+              <span class="dim-icon">↕️</span>
+              <label class="field-label">HAUTEUR / HOOGTE
+                <div class="input-unit-row">
+                  <input type="number" id="reqHeight" class="field-input" min="0" step="0.01" value="1.2" />
+                  <select id="reqHeightUnit" class="unit-sel">
+                    <option value="m">m</option>
+                    <option value="cm">cm</option>
+                  </select>
+                </div>
+              </label>
+            </div>
+            <div class="dim-item">
+              <span class="dim-icon">↔️</span>
+              <label class="field-label">LONGUEUR / LENGTE
+                <div class="input-unit-row">
+                  <input type="number" id="reqLength" class="field-input" min="0" step="0.01" value="2.0" />
+                  <select id="reqLengthUnit" class="unit-sel">
+                    <option value="m">m</option>
+                    <option value="cm">cm</option>
+                  </select>
+                </div>
+              </label>
+            </div>
+            <div class="dim-item">
+              <span class="dim-icon">↔️</span>
+              <label class="field-label">LARGEUR / BREEDTE
+                <div class="input-unit-row">
+                  <input type="number" id="reqWidth" class="field-input" min="0" step="0.01" value="1.1" />
+                  <select id="reqWidthUnit" class="unit-sel">
+                    <option value="m">m</option>
+                    <option value="cm">cm</option>
+                  </select>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <span class="field-card-icon">📐</span>
+          <label class="field-label">VOLUME (M³) <span class="optional">(optionnel)</span>
+            <input type="number" id="reqVolume" class="field-input" min="0" step="0.1" value="0" placeholder="0.0" />
+          </label>
+        </div>
+
+        <label class="toggle-card">
+          <span class="toggle-icon">❄️</span>
+          <span class="toggle-label">Transport frigorifique</span>
+          <input type="checkbox" id="reqRefrigerated" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <div class="cond-block" id="block-temp">
+          <label class="field-label">Plage de température
+            <select id="reqTempRange" class="field-select">
+              <option value="minus12_0">-12°C / 0°C</option>
+              <option value="0_minus20">0°C / -20°C</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="toggle-card">
+          <span class="toggle-icon">🔩</span>
+          <span class="toggle-label">Hayon / Laadklep requis</span>
+          <input type="checkbox" id="reqTailLift" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="goToStep(3)">Suivant <span>→</span></button>
+          <button class="btn-back" onclick="goToStep(1)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- ======== STEP 3: Sélection du véhicule ======== -->
+      <div class="step-content" id="step-3" style="display:none;">
+
+        <div id="recommended-card" class="recommended-card"></div>
+
+        <h3 class="vehicles-heading">CHOISISSEZ LE VÉHICULE ADAPTÉ À VOTRE BESOIN</h3>
+
+        <div id="vehicle-grid" class="vehicle-grid"></div>
+
+        <div class="override-section">
+          <label class="check-label">
+            <input type="checkbox" id="vehicleOverride" />
+            <span>Sélection manuelle (override)</span>
+          </label>
+          <div class="cond-block" id="block-vehicle-override">
+            <select id="vehicleSelect" class="field-select"></select>
+          </div>
+        </div>
+
+        <div class="debug-panel">
+          <div class="debug-header" id="debug-toggle">▶ Détails de sélection (afficher/masquer)</div>
+          <div class="debug-body" id="debug-body" style="display:none;"></div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="goToStep(4)">Suivant <span>→</span></button>
+          <button class="btn-back" onclick="goToStep(2)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- ======== STEP 4: Suppléments opérationnels ======== -->
+      <div class="step-content" id="step-4" style="display:none;">
+
+        <div class="field-card">
+          <span class="field-card-icon">🕐</span>
+          <label class="field-label">TEMPS D'ATTENTE TOTAL (MIN)
+            <input type="number" id="waitingMinutes" class="field-input" min="0" value="0" />
+            <small class="helper" id="waitingHelper">Temps inclus: — min</small>
+          </label>
+        </div>
+
+        <div class="two-col-cards">
+          <div class="field-card">
+            <span class="field-card-icon">📍</span>
+            <label class="field-label">EXTRA ARRÊT BRUXELLES
+              <input type="number" id="extraStopsBxl" class="field-input" min="0" value="0" />
+            </label>
+          </div>
+          <div class="field-card">
+            <span class="field-card-icon">📍</span>
+            <label class="field-label">EXTRA ARRÊT AUTRES
+              <input type="number" id="extraStopsOther" class="field-input" min="0" value="0" />
+            </label>
+          </div>
+        </div>
+
+        <label class="toggle-card">
+          <span class="toggle-icon">🌙</span>
+          <div class="toggle-label-group">
+            <span class="toggle-label">Supplément nuit</span>
+            <small>(€67.22)</small>
+          </div>
+          <input type="checkbox" id="suppNight" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <label class="toggle-card">
+          <span class="toggle-icon">❄️</span>
+          <div class="toggle-label-group">
+            <span class="toggle-label">Nuit frigo -12/0°C</span>
+            <small>(€79.44)</small>
+          </div>
+          <input type="checkbox" id="suppNightFrigo12" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <label class="toggle-card">
+          <span class="toggle-icon">🧊</span>
+          <div class="toggle-label-group">
+            <span class="toggle-label">Nuit frigo 0/-20°C</span>
+            <small>(€91.67)</small>
+          </div>
+          <input type="checkbox" id="suppNightFrigo20" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <div class="two-col-cards">
+          <div class="field-card">
+            <span class="field-card-icon">👥</span>
+            <label class="field-label">CONVOYEUR (HEURES)
+              <input type="number" id="convoyeurHours" class="field-input" min="0" step="0.5" value="0" />
+              <small class="helper">€31.27 / heure</small>
+            </label>
+          </div>
+          <div class="field-card">
+            <span class="field-card-icon">👤</span>
+            <label class="field-label">2e CHAUFFEUR (HEURES)
+              <input type="number" id="chauffeurHours" class="field-input" min="0" step="0.5" value="0" />
+              <small class="helper">€36.66 / heure</small>
+            </label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="goToStep(5)">Suivant <span>→</span></button>
+          <button class="btn-back" onclick="goToStep(3)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- ======== STEP 5: Carburant & TVA ======== -->
+      <div class="step-content" id="step-5" style="display:none;">
+
+        <label class="toggle-card">
+          <span class="toggle-icon">⛽</span>
+          <div class="toggle-label-group">
+            <span class="toggle-label">Appliquer surcharge carburant</span>
+            <small>Ajoutez la surcharge carburant au devis</small>
+          </div>
+          <input type="checkbox" id="fuelEnabled" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <div class="cond-block" id="block-fuel">
+          <label class="field-label">% Surcharge carburant
+            <input type="number" id="fuelPct" class="field-input" min="0" max="100" step="0.01" value="7.75" />
+            <small class="helper warning-text">⚠ Valeur variable — à vérifier mensuellement. Exemple nov. 2020: 7.75%</small>
+          </label>
+        </div>
+
+        <label class="toggle-card" style="margin-top:12px;">
+          <span class="toggle-icon">🧾</span>
+          <div class="toggle-label-group">
+            <span class="toggle-label">Affichez prix TTC (TVA 21%)</span>
+            <small>Ajoutez la TVA au devis</small>
+          </div>
+          <input type="checkbox" id="showVAT" class="toggle-input" />
+          <span class="toggle-track"></span>
+        </label>
+
+        <div class="step-nav">
+          <button class="btn-next btn-calculate" onclick="goToSummary()">RÉSUMER <span>→</span></button>
+          <button class="btn-back" onclick="goToStep(4)">← Retour</button>
+        </div>
+      </div>
+
+      <!-- ======== SUMMARY ======== -->
+      <div class="step-content" id="step-summary" style="display:none;">
+
+        <div id="result-warning-banner" class="warning-banner" style="display:none;"></div>
+
+        <div class="result-vehicle-header" id="result-vehicle-card">
+          <span class="result-v-icon">🚛</span>
+          <div>
+            <div class="result-v-name" id="result-vehicle-name">—</div>
+            <div class="result-v-reason" id="result-vehicle-reason">—</div>
+          </div>
+        </div>
+
+        <div class="breakdown-table" id="breakdown-table"></div>
+        <div class="totals-block" id="totals-block"></div>
+
+        <p class="disclaimer-note">
+          Ce calculateur est basé sur le tarif 2021. Le prix final reste soumis à vérification commerciale. Tous les prix sont hors TVA (21%).
+        </p>
+
+        <div class="result-actions">
+          <button class="btn-action" id="btnPrint">🖨️ Imprimer</button>
+          <button class="btn-action" id="btnCopy">📋 Copier</button>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="resetAll()">↺ Nouveau calcul</button>
+          <button class="btn-back" onclick="goToStep(5)">← Modifier</button>
+        </div>
+      </div>
+
+    </div><!-- end content-card -->
+  </div><!-- end app -->
 
   <script src="script.js"></script>
 </body>
