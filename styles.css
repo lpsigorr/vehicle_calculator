@@ -212,6 +212,29 @@ body {
   user-select: none;
 }
 
+.hero-images {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.hero-guy {
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
+}
+
+.hero-box {
+  height: 70px;
+  object-fit: contain;
+  display: block;
+  margin-left: -18px;
+  align-self: flex-end;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
+}
+
 /* ================================================================
    CONTENT CARD
    ================================================================ */
@@ -233,7 +256,7 @@ body {
 .mode-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 8px;
 }
 
@@ -241,9 +264,11 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
+  padding: 10px 14px;
+  height: 72px;
+  overflow: hidden;
   border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
   background: var(--white);
@@ -254,7 +279,7 @@ body {
 
 .mode-card:has(input:checked) {
   border-color: var(--navy);
-  background: #f0f4ff;
+  background: #eef2ff;
   box-shadow: 0 2px 10px rgba(13,34,85,0.1);
 }
 
@@ -264,17 +289,25 @@ body {
 }
 
 .mode-emoji {
-  font-size: 28px;
   flex-shrink: 0;
-  width: 38px;
-  text-align: center;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.mode-emoji[src="images/icon_brux.png"],
+.mode-emoji[src="images/icon_prov_min.png"],
+.mode-emoji[src="images/icon_rand.png"],
+.mode-emoji[src="images/icon_car.png"] {
+  width: 64px;
+  height: 64px;
 }
 
 .mode-info { flex: 1; }
 
 .mode-info strong {
   display: block;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text);
 }
@@ -283,7 +316,7 @@ body {
   display: block;
   font-size: 12px;
   color: var(--text-muted);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .radio-circle {
@@ -303,8 +336,8 @@ body {
 .mode-card:has(input:checked) .radio-circle::after {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   background: var(--navy);
   border-radius: 50%;
   top: 50%;

@@ -228,6 +228,7 @@ const STEP_DATA = [
     line1: "MODE DE", line2: "TARIFICATION",
     subtitle: "Choisissez le mode de tarification qui correspond à votre besoin",
     emoji: "🚚",
+    heroHTML: '<div class="hero-images"><img class="hero-guy" src="images/guy_1.png" alt=""><img class="hero-box" src="images/box_1.png" alt=""></div>',
   },
   {
     line1: "CARACTÉRISTIQUES", line2: "DU CHARGEMENT",
@@ -324,7 +325,12 @@ function updateHero(stepIndex) {
   document.getElementById("hero-title").innerHTML =
     d.line1 + ' <span class="hero-accent">' + d.line2 + "</span>";
   document.getElementById("hero-subtitle").textContent = d.subtitle;
-  document.getElementById("hero-emoji").textContent = d.emoji;
+  const emojiEl = document.getElementById("hero-emoji");
+  if (d.heroHTML) {
+    emojiEl.innerHTML = d.heroHTML;
+  } else {
+    emojiEl.textContent = d.emoji;
+  }
 }
 
 function updateProgress(activeStep) {
