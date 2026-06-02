@@ -420,7 +420,9 @@ body {
 }
 
 .field-card-icon {
-  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   margin-top: 14px;
   flex-shrink: 0;
 }
@@ -452,7 +454,9 @@ body {
 }
 
 .dim-icon {
-  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
   margin-bottom: 2px;
 }
 
@@ -512,7 +516,7 @@ body {
 
 .toggle-card:hover { border-color: var(--border-mid); }
 
-.toggle-icon { font-size: 24px; flex-shrink: 0; }
+.toggle-icon { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
 
 .toggle-label {
   font-size: 14px;
@@ -596,7 +600,8 @@ body {
 
 .two-col-cards .field-card-icon {
   margin-top: 0;
-  font-size: 20px;
+  width: 28px;
+  height: 28px;
 }
 
 /* ================================================================
