@@ -11,16 +11,36 @@
 <body>
 
   <header class="app-header">
-    <span class="flag">🇫🇷</span>
+    <div class="header-flag">🇫🇷</div>
     <div class="logo">
-      <div class="logo-circle">1</div>
-      <div>
-        <span class="logo-name">NUMBER ONE</span>
-        <span class="logo-tagline">DELIVERY</span>
-      </div>
+      <img src="images/n1_logo.png" alt="Number One" class="logo-img" />
     </div>
-    <button class="menu-btn">☰</button>
+    <button class="menu-btn" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="menu-content">
+      <button class="menu-close" id="menuClose">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="#0F417B" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <nav class="menu-nav">
+        <a href="../../development/numberone_final/mobile.html#hero" class="menu-item active">ACCUEIL</a>
+        <a href="../../development/numberone_final/mobile.html#fleet" class="menu-item">VÉHICULES</a>
+        <a href="../../development/numberone_final/mobile.html#services" class="menu-item">NOS SERVICES</a>
+        <a href="../../development/numberone_final/mobile.html#about" class="menu-item">QUI SOMMES-NOUS ?</a>
+        <a href="#" class="menu-item menu-item-outlined">ACCÈS CLIENT</a>
+        <a href="#" class="menu-item">NEWS</a>
+      </nav>
+      <a href="tel:+3224276004" class="menu-call-btn">APPELER</a>
+    </div>
+  </div>
 
   <div class="app">
 
@@ -420,5 +440,35 @@
   </div><!-- end app -->
 
   <script src="script.js"></script>
+  <script>
+    var menuToggle = document.getElementById('menuToggle');
+    var menuClose  = document.getElementById('menuClose');
+    var mobileMenu = document.getElementById('mobileMenu');
+    var menuItems  = document.querySelectorAll('.menu-item');
+
+    menuToggle.addEventListener('click', function () {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    menuClose.addEventListener('click', function () {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    menuItems.forEach(function (item) {
+      item.addEventListener('click', function () {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    mobileMenu.addEventListener('click', function (e) {
+      if (e.target === mobileMenu) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
 </body>
 </html>
